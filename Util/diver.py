@@ -5,6 +5,8 @@ from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
 import threading
 
+from Util.tool import tool
+
 
 class driver:
 
@@ -17,6 +19,8 @@ class driver:
         except Exception as e:
             print("read file failed, pls recheck the path" + e)
 
+        self.baseDir = tool.getBaseDir()
+        # msf from ini
         self.driver_platform = cf.get("driverInfo", "driver_platform")
         self.driver_version = cf.get("driverInfo", "driver_version")
         self.remote_is_enable = cf.get("driverInfo", "remote_is_enable")
@@ -37,10 +41,6 @@ class driver:
         prefs = {"": ""}
         options.add_experimental_option("prefs", prefs);
         return options
-
-    @staticmethod
-    def getBaseDir():
-        return os.path.dirname(os.getcwd())
 
     def driverPath(self):
         # 生成path路径，根据版本，平台
@@ -76,6 +76,7 @@ class driver:
             print("wrong driver name")
 
 
-if __name__ == '__main__':
-    driverlocal = driver()
-    driverlocal.getWebDriver()
+# test
+# if __name__ == '__main__':
+#     driverlocal = driver()
+#     driverlocal.getWebDriver().get("https:\\www.baidu.com")

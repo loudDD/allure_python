@@ -1,6 +1,5 @@
 from selenium.webdriver.support.wait import WebDriverWait
 
-from Util.WebTest import WebTest
 from Util.diver import driver
 from selenium.webdriver.support import expected_conditions as EC
 
