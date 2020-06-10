@@ -3,8 +3,7 @@ import os
 
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
-import threading
-
+from Util.logger import logger
 from Util.tool import tool
 
 
@@ -20,6 +19,7 @@ class driver:
             print("read file failed, pls recheck the path" + e)
 
         self.baseDir = tool.getBaseDir()
+        self.log = logger()
         # msf from ini
         self.driver_platform = cf.get("driverInfo", "driver_platform")
         self.driver_version = cf.get("driverInfo", "driver_version")
@@ -27,6 +27,9 @@ class driver:
         self.screen_is_enable = cf.get("driverInfo", "screen_is_enable")
         self.platform = cf.get("driverInfo", "platform")
         print(self.driver_platform)
+        self.log.setInfoLog("===========================================")
+        self.log.setInfoLog("driver platform : " + self.driver_platform)
+        # TODO
 
     def chromeDesiredCapabilities(self):
         # remote driver
