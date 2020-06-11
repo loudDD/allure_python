@@ -6,20 +6,39 @@ from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import os
 
+from Util.diver import driver
+from Util.logger import Logger
+from Util.tool import tool
+
 
 class WebTest:
 
     # 获取config ，作为参数
     # 全局传参
 
+    def getWebDriver(self):
+        self.driver = driver
+        self.driver.getWebDriver()
+
     def setup_module(self):
-        pass
+        self.baseDir = tool.getBaseDir()
+        self.log = Logger(__name__)
+        cf = configparser.ConfigParser();
+        path = os.path.join(tool.getBaseDir(), "TestCase", "properties.ini")
+        try:
+            cf.read(path)
+        except Exception as e:
+            self.log.setCriticalLog("read file failed, pls recheck the path" + e)
+        self.killDriver()
+        self.thread = cf.get("testInfo", "thread")
+        self.log.setInfoLog("****************************************")
+        self.log.setInfoLog("[Suit Params]  thread : " + self.thread)
 
     def teardown_module(self):
-        pass
+        self.driver.chromeDesiredCapabilities()[""]=""
 
     def setup_class(self):
-        pass
+        self.setDownloadDir()
 
     def teardown_class(self):
         pass
@@ -31,8 +50,7 @@ class WebTest:
         pass
 
     def setup_module(self):
-
-        print("driverinfo " + self.platform)
+        pass
 
     def teardown_module(self):
         pass
@@ -40,9 +58,13 @@ class WebTest:
     def info_properties(self):
         pass
 
-
-
-
+    def setDownloadDir(self):
+        downloadPath = os.path.join(tool.getBaseDir(), "TestCase", "download", __name__)
+        self.driver.commonDesiredCap()["download.default_directory"] = downloadPath
+    def killDriver(self):
+        self.log.setInfoLog("kill all chrome process...")
+        os.system("taskkill /f /im chromedriver.exe")
+        self.log.setInfoLog("done.")
 
     @staticmethod
     def getbasedir():

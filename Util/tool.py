@@ -4,5 +4,5 @@ import os
 class tool:
 
     @staticmethod
-    def getBaseDir(self):
+    def getBaseDir():
         return os.path.dirname(os.getcwd())
