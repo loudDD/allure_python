@@ -14,13 +14,13 @@ class driver:
 
         self.baseDir = tool.getBaseDir()
         self.log = Logger(__name__)
-        cf = configparser.ConfigParser();
+        cf = configparser.ConfigParser()
         path = os.path.join(tool.getBaseDir(), "TestCase", "properties.ini")
         self.log.setInfoLog("the property path is : " + path)
         try:
             cf.read(path)
         except Exception as e:
-            self.log.setCriticalLog("read file failed, pls recheck the path" + e)
+            self.log.setCriticalLog("read file failed, pls recheck the path",e)
         sys_platform = sys.platform
         if "win" in sys_platform:
             self.platform = "windows"
@@ -37,22 +37,21 @@ class driver:
         self.log.setInfoLog("[Params]  driver platform : " + self.driver_platform)
         self.log.setInfoLog("[Params]  driver version : " + self.driver_version)
         self.log.setInfoLog("[Params]  driver headless : " + str(self.headless))
-        self.log.setInfoLog("[Params]  driver screen_is_enable : "+ str(self.screen_is_enable))
+        self.log.setInfoLog("[Params]  driver screen_is_enable : " + str(self.screen_is_enable))
         self.log.setInfoLog("[Params]  driver remote_is_enable : " + str(self.remote_is_enable))
         self.log.setInfoLog("[Params]  driver remote_hub : " + self.remote_hub)
         self.log.setInfoLog("******************************************")
-
 
         # TODO
 
     def chromeDesiredCapabilities(self):
         # remote driver
         capabilities = DesiredCapabilities.CHROME.copy()
-        capabilities["browserName"] = "chrome";
-        for k,v in self.commonDesiredCap():
+        capabilities["browserName"] = "chrome"
+        for k, v in self.commonDesiredCap().items():
             capabilities[k] = v
         return capabilities
-    
+
     def commonDesiredCap(self):
 
         DesiredCap = {"profile.default_content_settings.popups": "0",
@@ -62,28 +61,29 @@ class driver:
         return DesiredCap
 
     def commonOptions(self):
-        options= ["--disable-blink-features", "--disable-app-list-dismiss-on-blur", "--test-type",
-                  "--ignore-certificate-errors", "--no-default-browser-check", "--lang=en-US", "--enable-automation",
-                  "--enable-background-blur", "--disable-infobars", "--disable-gpu",
-                  "--safebrowsing-disable-auto-update", "--safebrowsing-disable-download-protection",
-                  "--safebrowsing-disable-extension-blacklist", "--safebrowsing-manual-download-blacklist",
-                  "--trusted-download-sources"]
+        options = ["--disable-blink-features", "--disable-app-list-dismiss-on-blur", "--test-type",
+                   "--ignore-certificate-errors", "--no-default-browser-check", "--lang=en-US", "--enable-automation",
+                   "--enable-background-blur", "--disable-infobars", "--disable-gpu",
+                   "--safebrowsing-disable-auto-update", "--safebrowsing-disable-download-protection",
+                   "--safebrowsing-disable-extension-blacklist", "--safebrowsing-manual-download-blacklist",
+                   "--trusted-download-sources"]
         if self.headless is True:
             options.append("--headless");
         return options
+
     def chromeOptions(self):
         # mapping folder of zalenium
         options = webdriver.ChromeOptions()
-        for option in self.chromeOptions():
+        for option in self.commonOptions():
             options.add_argument(option)
         return options
-    
+
     def firefoxDesiredCapabilities(self):
         capabilities = DesiredCapabilities.FIREFOX.copy()
         # TODO check if this is working
         capabilities.get(self.firefoxOptions())
         capabilities["browserName"] = "firefox";
-        for k,v in self.commonDesiredCap():
+        for k, v in self.commonDesiredCap():
             capabilities[k] = v
         return capabilities
 
@@ -113,7 +113,7 @@ class driver:
         # 生成path路径，根据版本，平台
         if self.driver_platform == "chrome":
             path = os.path.join(tool.getBaseDir(), "driver", self.driver_platform, self.driver_version, self.platform)
-            if  "win" in self.platform:
+            if "win" in self.platform:
                 path = os.path.join(path, "chromedriver.exe")
             elif self.platform == "mac":
                 path = os.path.join(path, "chromedriver")
@@ -135,10 +135,10 @@ class driver:
     def getWebDriver(self):
 
         # 考虑并发，remote
-        if self.remote_is_enable == True and self.driver_platform == "chrome":
+        if self.remote_is_enable is True and self.driver_platform == "chrome":
             return webdriver.Remote(command_executor=self.remote_hub,
                                     desired_capabilities=self.chromeDesiredCapabilities())
-        elif self.remote_is_enable == False and "chrome" == self.driver_platform:
+        elif self.remote_is_enable is False and "chrome" == self.driver_platform:
             self.log.setInfoLog("the driver platform is Chrome , start Chrome")
             return webdriver.Chrome(executable_path=self.driverPath(),
                                     desired_capabilities=self.chromeDesiredCapabilities(),
@@ -148,8 +148,9 @@ class driver:
             return webdriver.Firefox(executable_path=self.driverPath(),
                                      desired_capabilities=self.firefoxDesiredCapabilities(),
                                      options=self.firefoxOptions())
-        else:
-            self.log.setCriticalLog("wrong driver name")
+        # else:
+        #     self.log.setCriticalLog("wrong driver name")
+        #     return None
 
 
 # test
