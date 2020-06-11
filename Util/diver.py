@@ -47,10 +47,7 @@ class driver:
 
     def chromeDesiredCapabilities(self):
         # remote driver
-        
         capabilities = DesiredCapabilities.CHROME.copy()
-        # TODO check if this is working
-        capabilities.get(self.chromeOptions())
         capabilities["browserName"] = "chrome";
         for k,v in self.commonDesiredCap():
             capabilities[k] = v
