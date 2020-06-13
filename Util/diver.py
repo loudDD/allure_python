@@ -20,7 +20,7 @@ class driver:
         try:
             cf.read(path)
         except Exception as e:
-            self.log.setCriticalLog("read file failed, pls recheck the path",e)
+            self.log.setCriticalLog(("read file properties.ini failed, pls recheck the path", e))
         sys_platform = sys.platform
         if "win" in sys_platform:
             self.platform = "windows"
@@ -154,6 +154,6 @@ class driver:
 
 
 # test
-if __name__ == '__main__':
-    driverlocal = driver()
-    driverlocal.getWebDriver().get("https:\\www.baidu.com")
+# if __name__ == '__main__':
+#     driverlocal = driver()
+#     driverlocal.getWebDriver().get("https:\\www.baidu.com")

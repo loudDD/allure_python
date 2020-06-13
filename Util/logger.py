@@ -11,8 +11,9 @@ class Logger:
     def __init__(self, loggername):
         self.logger = logging.getLogger(loggername)
         self.logger.setLevel(logging.DEBUG)
-
-        logname = log_path + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "out.log"
+        print("1111" ,log_path)
+        logname = os.path.join(log_path , datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + "_out.log")
+        print("1111", logname)
         fh = logging.FileHandler(logname, encoding='utf-8')
         fh.setLevel(logging.DEBUG)
 
@@ -40,5 +41,5 @@ class Logger:
 
 
 
-# if __name__ == '__main__':
-#     log = Logger(__name__).setCriticalLog("ffffff")
+if __name__ == '__main__':
+    log = Logger(__name__).setCriticalLog("ffffff")
