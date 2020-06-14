@@ -1,14 +1,19 @@
 import configparser
 import os
 import sys
+import threading
+import traceback
 
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from Util.logger import Logger
 from Util.tool import tool
 
+global driver
 
-class driver:
+class Driver:
 
     def __init__(self):
 
@@ -40,6 +45,10 @@ class driver:
         self.log.setInfoLog("[Params]  driver screen_is_enable : " + str(self.screen_is_enable))
         self.log.setInfoLog("[Params]  driver remote_is_enable : " + str(self.remote_is_enable))
         self.log.setInfoLog("[Params]  driver remote_hub : " + self.remote_hub)
+        self.script_load_timeout = cf.get("driverSetting", "script_load_timeout")
+        self.page_load_timeout = cf.get("driverSetting", "page_load_timeout")
+        self.implicitly_wait = cf.get("driverSetting", "implicitly_wait")
+
         self.log.setInfoLog("******************************************")
 
         # TODO
@@ -58,6 +67,10 @@ class driver:
                       "profile.default_content_setting_values.automatic_downloads": "1",
                       "download.prompt_for_download": False, "download.directory_upgrade": True,
                       "safebrowsing.enabled": True, }
+        downloadpath = os.path.join(tool.getBaseDir(), "TestCase", "download", __name__)
+        print("222", downloadpath)
+        # set download path
+        DesiredCap["download.default_directory"] = downloadpath
         return DesiredCap
 
     def commonOptions(self):
@@ -132,28 +145,32 @@ class driver:
             return None
         return path
 
-    def getWebDriver(self):
-
-        # 考虑并发，remote
+    def getWebDriver(self, localdriver=webdriver):
+            # 考虑并发，remote
         if self.remote_is_enable is True and self.driver_platform == "chrome":
-            return webdriver.Remote(command_executor=self.remote_hub,
+            driver = webdriver.Remote(command_executor=self.remote_hub,
                                     desired_capabilities=self.chromeDesiredCapabilities())
+            threading.current_thread().setName()
+            return driver
         elif self.remote_is_enable is False and "chrome" == self.driver_platform:
             self.log.setInfoLog("the driver platform is Chrome , start Chrome")
-            return webdriver.Chrome(executable_path=self.driverPath(),
+            driver = webdriver.Chrome(executable_path=self.driverPath(),
                                     desired_capabilities=self.chromeDesiredCapabilities(),
                                     options=self.chromeOptions())
+            return driver
         elif self.remote_is_enable == False and "firefox" == self.driver_platform:
             self.log.setInfoLog("the driver platform is FireFox , start FireFox")
-            return webdriver.Firefox(executable_path=self.driverPath(),
+            driver =  webdriver.Firefox(executable_path=self.driverPath(),
                                      desired_capabilities=self.firefoxDesiredCapabilities(),
                                      options=self.firefoxOptions())
-        # else:
-        #     self.log.setCriticalLog("wrong driver name")
-        #     return None
+            return driver
+        else:
+            self.log.setCriticalLog("wrong driver name")
+            return None
+
 
 
 # test
 # if __name__ == '__main__':
-#     driverlocal = driver()
+#     driverlocal = Driver()
 #     driverlocal.getWebDriver().get("https:\\www.baidu.com")
