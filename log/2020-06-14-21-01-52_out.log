@@ -1,0 +1,12 @@
+2020-06-14 21:01:52,312-__main__-INFO-the property path is : C:\gitProject\allure_python\TestCase\properties.ini
+2020-06-14 21:01:52,313-__main__-INFO-**************Default Config**************
+2020-06-14 21:01:52,314-__main__-INFO-[Params]  System platform : chrome
+2020-06-14 21:01:52,314-__main__-INFO-[Params]  driver platform : chrome
+2020-06-14 21:01:52,314-__main__-INFO-[Params]  driver version : 83
+2020-06-14 21:01:52,314-__main__-INFO-[Params]  driver headless : False
+2020-06-14 21:01:52,314-__main__-INFO-[Params]  driver screen_is_enable : False
+2020-06-14 21:01:52,315-__main__-INFO-[Params]  driver remote_is_enable : False
+2020-06-14 21:01:52,316-__main__-INFO-[Params]  driver remote_hub : 
+2020-06-14 21:01:52,317-__main__-INFO-the driver platform is Chrome , start Chrome
+2020-06-14 21:02:07,392-__main__-INFO-the driver platform is Chrome , start Chrome
+2020-06-14 21:02:20,152-__main__-INFO-the driver platform is Chrome , start Chrome

@@ -1,0 +1,11 @@
+2020-06-14 22:05:01,392-Util.diver-INFO-the property path is : C:\gitProject\allure_python\TestCase\properties.ini
+2020-06-14 22:05:01,393-Util.diver-INFO-**************Default Config**************
+2020-06-14 22:05:01,393-Util.diver-INFO-[Params]  System platform : chrome
+2020-06-14 22:05:01,393-Util.diver-INFO-[Params]  driver platform : chrome
+2020-06-14 22:05:01,394-Util.diver-INFO-[Params]  driver version : 83
+2020-06-14 22:05:01,394-Util.diver-INFO-[Params]  driver headless : False
+2020-06-14 22:05:01,394-Util.diver-INFO-[Params]  driver screen_is_enable : False
+2020-06-14 22:05:01,395-Util.diver-INFO-[Params]  driver remote_is_enable : False
+2020-06-14 22:05:01,395-Util.diver-INFO-[Params]  driver remote_hub : 
+2020-06-14 22:05:01,395-Util.diver-INFO-******************************************
+2020-06-14 22:05:01,396-Util.diver-INFO-the driver platform is Chrome , start Chrome

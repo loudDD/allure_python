@@ -1,0 +1,14 @@
+2020-06-14 13:13:16,168-Util.diver-INFO-the property path is : C:\gitProject\allure_python\TestCase\properties.ini
+2020-06-14 13:13:16,168-Util.diver-INFO-**************Default Config**************
+2020-06-14 13:13:16,169-Util.diver-INFO-[Params]  System platform : chrome
+2020-06-14 13:13:16,169-Util.diver-INFO-[Params]  driver platform : chrome
+2020-06-14 13:13:16,169-Util.diver-INFO-[Params]  driver version : 83
+2020-06-14 13:13:16,169-Util.diver-INFO-[Params]  driver headless : False
+2020-06-14 13:13:16,169-Util.diver-INFO-[Params]  driver screen_is_enable : False
+2020-06-14 13:13:16,170-Util.diver-INFO-[Params]  driver remote_is_enable : False
+2020-06-14 13:13:16,170-Util.diver-INFO-[Params]  driver remote_hub : 
+2020-06-14 13:13:16,170-Util.diver-INFO-******************************************
+2020-06-14 13:13:16,171-Util.WebTest-INFO-kill all chrome process...
+2020-06-14 13:13:17,515-Util.WebTest-INFO-done.
+2020-06-14 13:13:17,516-Util.WebTest-INFO-****************************************
+2020-06-14 13:13:17,516-Util.WebTest-INFO-[Suit Params]  thread : 10

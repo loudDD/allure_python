@@ -1,0 +1,5 @@
+2020-06-14 22:42:01,901-Util.WebTest-INFO-kill all chrome process...
+2020-06-14 22:42:06,690-Util.WebTest-INFO-done.
+2020-06-14 22:42:19,242-Util.WebTest-INFO-****************************************
+2020-06-14 22:42:19,243-Util.WebTest-INFO-[Suit Params]  thread : 10
+2020-06-14 22:42:21,720-Util.WebTest-DEBUG-cannot find the element ,the element is empty

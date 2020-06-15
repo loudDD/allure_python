@@ -1,20 +1,26 @@
-from selenium.webdriver.common.by import By
+import time
 
-from TestCase.TestCase_Impl import TestCase_Impl
+from selenium.webdriver.common.by import By
 from Util.WebTest import WebTest
-from Util.diver import driver
+from Util.diver import Driver
 
 
 def add(a, b):
     return a + b
 
 
-class Test_demo1(WebTest):
-    # driver = driver().getWebDriver().get("")
+class Test_demo1:
+
+    # driver = driver().getWebDriver()
+
     def test_1(self):
         print("33333")
-        driver().getWebDriver().get("https:\\www.baidu.com")
-        WebTest().getElementToBeVisible((By.ID, "sw"))
+        # driver.get("https:\\www.baidu.com")
+        webtest = WebTest()
+        driver = webtest.getWebDriver()
+        driver.get("https:\\www.baidu.com")
+        webtest.getElementToBeVisible(By.ID, "sw")
+        time.sleep(30)
 
     def test_2(self):
         assert add(3, 4) == 7
