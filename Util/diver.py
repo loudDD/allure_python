@@ -2,10 +2,12 @@ import configparser
 import os
 import sys
 import threading
+import time
 import traceback
 
 from selenium import webdriver
 from selenium.webdriver import DesiredCapabilities
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Util.logger import Logger
@@ -174,3 +176,13 @@ class Driver:
 # if __name__ == '__main__':
 #     driverlocal = Driver()
 #     driverlocal.getWebDriver().get("https:\\www.baidu.com")
+
+if __name__ == '__main__':
+    driverpath = Driver().driverPath()
+    driver = webdriver.Chrome(driverpath)
+    driver.get("https://www.baidu.com")
+    ele = driver.find_element(By.ID,"kw")
+    ele.click()
+    ele = WebDriverWait(driver,20).until(EC.visibility_of_element_located((By.ID,"kw")))
+    ele.send_keys("10")
+    time.sleep(30)

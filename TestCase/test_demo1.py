@@ -19,7 +19,12 @@ class Test_demo1:
         webtest = WebTest()
         driver = webtest.getWebDriver()
         driver.get("https:\\www.baidu.com")
-        webtest.getElementToBeVisible(By.ID, "sw")
+        webelement = webtest.getElementToBeVisible(By.ID, "kw")
+        print("2222" ,webelement)
+        webelement.send_keys("30")
+        webelement = webtest.getElementToBeClickable(By.ID,"su")
+        print("2222", webelement)
+        webelement.click()
         time.sleep(30)
 
     def test_2(self):

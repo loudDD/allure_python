@@ -36,49 +36,51 @@ class WebTest:
         self.implicitly_wait = cf.get("driverSetting", "implicitly_wait")
         self.driver.set_script_timeout(self.script_load_timeout)
         self.driver.set_page_load_timeout(self.page_load_timeout)
-        self.driver.implicitly_wait(self.implicitly_wait)
+        # self.driver.implicitly_wait(self.implicitly_wait)
 
     def getWebDriver(self):
         return self.driver
 
-    # def getElementToBeClickable(self, time, locator, value: str = None):
-    #     try:
-    #         if isinstance(locator, tuple):
-    #             condition = EC.element_to_be_clickable(*locator)
-    #         else:
-    #             condition = EC.element_to_be_clickable(locator, value)
-    #         webelement = WebDriverWait(self.getWebDriver(), timeout=time, poll_frequency=0.5).until(condition)
-    #         return webelement
-    #     except Exception as e:
-    #         self.log.setDebugLog("cannot find the element ,the element is empty")
-    #         traceback.print_exc()
-
     def getElementToBeClickable(self, locator, value, time: int = None):
         if not time:
-            time = self.timeout
+            time = int(self.timeout)
         try:
-            condition = EC.element_to_be_clickable((locator, value))
-            webelement = WebDriverWait(self.getWebDriver(), timeout=time, poll_frequency=0.5).until(condition)
+            webelement = WebDriverWait(self.getWebDriver(), timeout=time, poll_frequency=0.5).until(EC.element_to_be_clickable((locator, value)))
+            self.element_Highlight(webelement)
             return webelement
         except:
             self.log.setDebugLog("cannot find the element ,the element is empty")
             traceback.print_exc()
+            return None
 
     def getElementToBeVisible(self, locator, value, time: int = None):
         if not time:
             time = int(self.timeout)
         try:
-            condition = EC.visibility_of_element_located((locator, value))
+            # condition = EC.visibility_of_element_located((locator, value))
             webelement = WebDriverWait(self.getWebDriver(), timeout=time, poll_frequency=0.5).until(
-                condition)
+                EC.visibility_of_element_located((locator, value)))
+            self.element_Highlight(webelement)
             return webelement
         except:
+
             self.log.setDebugLog("cannot find the element ,the element is empty")
             traceback.print_exc()
+            return None
 
     def waitElementToBeInvisible(self, time, locator, value):
         WebDriverWait(self.getWebDriver(), timeout=time, poll_frequency=0.5).until(
             EC.invisibility_of_element_located(locator, value))
+
+
+
+    def action_click_element(self,webelement):
+        self.element_Highlight(webelement)
+        text = webelement.text
+        self.waitSeconds(1)
+        self.getScreenShot()
+        self.waitSeconds(1)
+        webelement.click()
 
     # def setup_module(self):
     #     pass
@@ -117,7 +119,7 @@ class WebTest:
     def log(self):
         pass
 
-    def waitSeconds(self, time, msg):
+    def waitSeconds(self, time, msg:str = None):
         self.log.setInfoLog("wait seconds due to " + msg)
         for i in range(time):
             sleep(1)
@@ -130,13 +132,22 @@ class WebTest:
         self.driver.save_screenshot()
         pass
 
-    def Action_Execute_JS(self, script):
+    def action_JS_click(self, webelement):
+        if  webelement:
+
+
+        self.element_Highlight(webelement)
+
+
+    def action_execute_JS(self, script):
         self.driver.execute_script(script)
 
-    def Element_Highlight(self, element):
-        pass
+    def element_Highlight(self, element):
+        self.getWebDriver().execute_script("element = arguments[0];" + "original_style = element.getAttribute('style');"
+							+ "element.setAttribute('style', original_style + \";" + " border: 3px solid red;\");"
+							+ "setTimeout(function(){element.setAttribute('style', original_style);}, 2000);",element)
 
-    def Execute_JS(self, jsScript):
+    def execute_JS(self, jsScript):
         pass
 
 # if __name__ == '__main__':
