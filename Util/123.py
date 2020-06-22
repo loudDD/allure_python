@@ -1,29 +1,38 @@
-class demo:
-    def setname(self, name):
-        if len(name) < 3:
-            raise ValueError("must longer than 3")
-        self.__name = name
 
-    def getname(self):
-        return self.__name
+def decorator(func):
+    a = 10
+    print("begin wrapper")
+    def wrapper():
+        print("inner wrapper")
+        func()
+        print("inner wrapper end")
+    print("end wrapper")
+    return wrapper
 
-    name = property(getname, setname)
-    def setadd(self, add):
-        if add.startswith("http://"):
-            self.__add = add
-        else:
-            raise ValueError("must start with http")
-    def getadd(self):
-        return self.__add
-    add=property(getadd,setadd)
+@decorator
+def fun():
+    print("been wrap")
+'''
+装饰器可以传参
+需要三层
+最外层接受参数
+第二层接受函数
+注意，需要返回两层
 
-    def __display(self):
-        print(self.__name,self.__add)
+'''
 
-test = demo()
-test.add="http://www.baidu.com"
-test.name="demo"
-test.getadd()
-print(test.name)
-print(test.add)
-# demo.__display()
+def deco(a):
+    print("deco" ,a)
+    def outer(func):
+        print("outer")
+        def inner():
+            print("inner")
+            func()
+        return inner
+    return outer
+@deco(10)
+def beg():
+    print("begin")
+
+
+beg()
