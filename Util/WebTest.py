@@ -134,9 +134,7 @@ class WebTest:
 
     def action_JS_click(self, webelement):
         if  webelement:
-
-
-        self.element_Highlight(webelement)
+            self.element_Highlight(webelement)
 
 
     def action_execute_JS(self, script):
